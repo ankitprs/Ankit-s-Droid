@@ -28,6 +28,8 @@ message_history = {}
 @app.post("/slack/events")
 async def slack_events(request: Request):
     data = await request.json()
+    # for debugging
+    print(f"Received data: {data}")
 
     # Slack Verification Challenge
     if "challenge" in data:

@@ -20,8 +20,6 @@ def generate_gemini_response(history):
       system_instruction="You are Ankits Droid, a helpful AI assistant, and you are having a conversation with a user. Respond naturally and informatively.",
     )  
     
-    # prompt = " ".join([part for message in history for part in message["parts"]])
-
     try:
         response = model.generate_content(history)
         return response.text
