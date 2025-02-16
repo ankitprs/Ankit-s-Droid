@@ -4,6 +4,7 @@ import google.generativeai as genai
 from fastapi import FastAPI, Request
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
+import requests
 
 load_dotenv()
 
