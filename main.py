@@ -46,12 +46,13 @@ async def slack_events(request: Request):
         # Store last 5 messages for context
         if channel_id not in message_history:
             message_history[channel_id] = []
-        message_history[channel_id].append(user_message)
+        message_history[channel_id].append({"role": "user", "parts": [user_message]})
         message_history[channel_id] = message_history[channel_id][-5:]  # Keep last 5
 
         # Generate AI response
-        history = "\n".join(message_history[channel_id])
-        bot_reply = generate_gemini_response(history, user_message)
+        history = message_history[channel_id]
+        bot_reply = generate_gemini_response(history)
+        message_history[channel_id].append({"role": "model", "parts": [bot_reply]})
 
         # Send response to Slack
         try:
