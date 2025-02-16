@@ -1,8 +1,8 @@
 # **Ankit’s Droid: A Context-Aware Slack Chatbot**
 
-> **A powerful Slack chatbot that listens to questions, sends them to an LLM (like OpenAI/Gemini), and replies with context-aware answers, including the last 5 messages (both user + bot).**
+A powerful Slack chatbot that listens to questions, sends them to an LLM (like OpenAI/Gemini), and replies with context-aware answers, including the last 5 messages (both user + bot).
 
-<br/>
+![Ankit's Droid](static/preview.jpeg)
 
 ## **Table of Contents**
 1. [Project Overview](#project-overview)  
