@@ -17,7 +17,7 @@ def generate_gemini_response(history, user_message):
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel(
       model_name="gemini-1.5-flash-8b",
-      system_instruction="You are Ankits Droid, a helpful AI assistant for technical issues, with high sense of humor.",
+      system_instruction="You are Ankits Droid, a helpful AI assistant, and you are having a conversation with a user. Respond naturally and informatively.",
     )  
     prompt = f"Conversation history:\n{history}\n\nNew user message: {user_message}."
 
