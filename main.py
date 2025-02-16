@@ -5,12 +5,11 @@ from fastapi import FastAPI, Request
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 import requests
+from gemini_api import generate_gemini_response 
 
 load_dotenv()
 
 # Load API Keys
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 SLACK_SIGNING_SECRET = os.getenv("SLACK_SIGNING_SECRET")
 SLACK_REDIRECT_URI = os.getenv("SLACK_REDIRECT_URI")
@@ -20,10 +19,6 @@ SLACK_CLIENT_SECRET = os.getenv("SLACK_CLIENT_SECRET")
 
 # Initialize Slack Client
 client = WebClient(token=SLACK_BOT_TOKEN)
-
-# Initialize Google Gemini API
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash-8b")
 
 app = FastAPI()
 
@@ -56,9 +51,7 @@ async def slack_events(request: Request):
 
         # Generate AI response
         history = "\n".join(message_history[channel_id])
-        prompt = f"Conversation history:\n{history}\n\nNew user message: {user_message}\n\nRespond in a helpful way."
-        response = model.generate_content([prompt])
-        bot_reply = response.text if response else "I couldn't generate a response."
+        bot_reply = generate_gemini_response(history, user_message)
 
         # Send response to Slack
         try:

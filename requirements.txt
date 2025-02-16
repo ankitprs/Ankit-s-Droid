@@ -2,6 +2,5 @@ fastapi
 uvicorn
 openai
 slack_sdk
-# sqlite3
 python-dotenv
 google-generativeai
