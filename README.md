@@ -133,7 +133,6 @@ https://slack.com/oauth/v2/authorize?client_id=5774959384934.8460364286098&scope
 your-names-droid/
 │── main.py                 # FastAPI backend
 │── gemini_api.py           # Google Gemini integration
-│── storage.py              # Stores last 5 messages (user + bot)
 │── requirements.txt        # Project dependencies
 │── Dockerfile              # Containerize (optional)
 │── README.md               # Documentation (you are here)
@@ -146,9 +145,8 @@ your-names-droid/
 
 ## **How It Works**
 1. **Slack → FastAPI**: User tags the bot in a Slack channel. Slack sends an event (JSON) to the FastAPI endpoint `/slack/events`.  
-2. **Message Storage**: We store the user message and retrieve the previous 5 messages from the same channel (including the bot’s own replies).  
-3. **LLM Call**: We combine those 5 messages + the new question into a prompt and send it to an LLM (OpenAI or Gemini).  
-4. **Bot Reply**: The LLM returns a context-aware answer, which we post back to the Slack channel as the bot.
+2. **LLM Call**: We combine those 5 messages + the new question into a prompt and send it to an LLM (OpenAI or Gemini).  
+3. **Bot Reply**: The LLM returns a context-aware answer, which we post back to the Slack channel as the bot.
 
 
 

@@ -14,3 +14,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the application
+CMD ["uvicorn", "app.main:app", "--host", "8000", "--reload"]
