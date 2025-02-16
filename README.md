@@ -33,9 +33,8 @@ This repository fulfills the following requirements:
 
 ## **Key Features**
 - **Context-Aware**: Includes the most recent conversation history (up to 5 messages) to produce relevant replies.
-- **LLM-Integrated**: Easily swap between OpenAI, Google Gemini, or any other LLM of your choice.
+- **LLM-Integrated**: Google Gemini.
 - **Slack Mentions**: Listens for `@Ankit’s Droid` mentions and replies in real-time.
-- **Extensible**: Use Redis/PostgreSQL or in-memory storage for chat history, and adapt to advanced features like slash commands or Slack Block Kit.
 - **Production-Ready**: FastAPI-based backend, easily deployable to services like Railway, Render, or AWS.
 
 
@@ -94,7 +93,7 @@ Below is a high-level overview of the system:
 5. **Configure Slack Events**  
    - Go to your Slack App settings → **Event Subscriptions** → **Enable Events**.
    - Add your **Request URL** (e.g., `https://<YOUR-NGROK-URL>/slack/events`).
-   - Subscribe to the event `app_mention` (and `message.channels` if you want full channel messages).
+   - Subscribe to the event `app_mention`, `chat:write`, `channels:history`, `chat:write.public`.
    - Save changes.
 
 6. **Add Bot to Slack Channel**  
@@ -109,9 +108,8 @@ Share this link so others can add **Ankit’s Droid** to their Slack workspace:
 https://slack.com/oauth/v2/authorize?client_id=5774959384934.8460364286098&scope=app_mentions:read,chat:write,channels:history&redirect_uri=https://ankit-s-droid.onrender.com/slack/oauth
 ```
 
-1. Replace `YOUR_CLIENT_ID` and `YOUR_REDIRECT_URL` with your actual Slack app credentials.
-2. Anyone clicking this link can **Install the Bot** in their workspace.
-3. They can then mention `@Ankit’s Droid` to interact with your chatbot.
+1. Anyone clicking this link can **Install the Bot** in their workspace.
+2. They can then mention `@Ankit’s Droid` to interact with your chatbot.
 
 
 ## **Usage**
@@ -121,7 +119,7 @@ https://slack.com/oauth/v2/authorize?client_id=5774959384934.8460364286098&scope
 
 
 ## **Video Demonstration**
-**[Video Demo Link](https://www.loom.com/share/YourDemoLink)**  
+**[Video Demo Link](https://www.loom.com/share/fcae80e8a9d4469795cf6716187d41e1?sid=04508b07-7d1e-47f3-a765-3983167bf1a5)**  
 - Demonstrates how the bot is installed in Slack.  
 - Shows a user asking multiple questions.  
 - Displays the bot’s context-aware replies.  
@@ -170,7 +168,7 @@ This project is licensed under the [MIT License](LICENSE).
 **Thank you for checking out “Ankit’s Droid”!**  
 
 - **Feel free to install the bot** in your Slack workspace using the [installation link](https://slack.com/oauth/v2/authorize?client_id=5774959384934.8460364286098&scope=app_mentions:read,chat:write,channels:history&redirect_uri=https://ankit-s-droid.onrender.com/slack/oauth).  
-- **Watch the [video demo](#video-demonstration)** to see the chatbot in action.  
+- **Watch the [video demo](https://www.loom.com/share/fcae80e8a9d4469795cf6716187d41e1?sid=181c386d-d419-4319-b80b-56ef2db0fecd)** to see the chatbot in action.  
 - **Contact**: For any questions or feedback, reach out via [GitHub Issues](../../issues) or email me at `ankitpr2001@gmail.com`.  
 
 > If you find this project helpful, please give it a ⭐ on GitHub.  
