@@ -25,6 +25,9 @@ app = FastAPI()
 # Store message history per channel
 message_history = {}
 
+# Store Access Tokens
+access_tokens = {}
+
 @app.post("/slack/events")
 async def slack_events(request: Request):
     data = await request.json()
@@ -40,6 +43,7 @@ async def slack_events(request: Request):
         channel_id = event.get("channel")
         user_message = event.get("text")
         bot_id = event.get("bot_id")
+        team_id = data.get("team_id")
 
         # Ignore bot messages
         if bot_id:
@@ -56,8 +60,10 @@ async def slack_events(request: Request):
         bot_reply = generate_gemini_response(history)
         message_history[channel_id].append({"role": "model", "parts": [bot_reply]})
 
-        # Send response to Slack
+        # Initialize Slack Client & send message
         try:
+            ACCESS_TOKEN = access_tokens[team_id]
+            client = WebClient(token=ACCESS_TOKEN)
             client.chat_postMessage(channel=channel_id, text=bot_reply)
         except SlackApiError as e:
             print(f"Error posting message: {e.response['error']}")
@@ -79,11 +85,15 @@ async def slack_oauth(request: Request):
         "code": code,
         "redirect_uri": SLACK_REDIRECT_URI
     }).json()
+    
+    # for debugging
+    print(f"Received OAuth response: {response}")
 
     if not response.get("ok"):
         return {"error": "OAuth failed", "details": response}
 
     bot_token = response["access_token"]
     workspace = response["team"]["name"]
+    access_tokens[response["team"]["id"]] = bot_token
 
     return {"message": f"Bot successfully installed in {workspace}!", "token": bot_token}
